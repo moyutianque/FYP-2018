@@ -5,9 +5,10 @@ import dlib
 import cv2
 from imutils import face_utils
 from scipy.spatial import distance as dist
+import playsound
  
 
-def cal_raw_closure(frame, detector, predictor,lStart, lEnd, rStart, rEnd):
+def cal_raw_ratio(frame, detector, predictor,lStart, lEnd, rStart, rEnd):
     avr_closure = -1
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # detect faces in the grayscale frame
@@ -64,11 +65,58 @@ def update_initial_ratio(temp_mean, eye_ratio):
             flag = True
         return flag,temp_mean
     return flag,eye_ratio
+    
+def display_status_mode1(frame, title, status):
+    width = (frame.shape)[1]
+    height = (frame.shape)[0]
+    color = ((50, 205, 50),(64, 64, 255))
+    ind = 1
+    
+    if status=="DONE":
+        ind = 0
         
+    if title=="CLOSE":
+        cv2.putText(frame, "{:<5} Ratio: ".format(title), (width-200, height-50),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.55, (250, 250, 255), 2)
+        cv2.putText(frame, status, (width-80, height-50),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.55, color[ind], 2)
+    else:
+        cv2.putText(frame, "{:<5} Ratio: ".format(title), (width-200, height-80),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.55, (250, 250, 255), 2)
+        cv2.putText(frame, status, (width-80, height-80),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.55, color[ind], 2)
         
+def closure_normalization(raw_ratio, open_eye_ratio, close_eye_ratio):
+    # closure normalization
+    if raw_ratio>open_eye_ratio:
+        raw_ratio = open_eye_ratio
+    if raw_ratio<close_eye_ratio:
+        raw_ratio = close_eye_ratio
+    closure = 1 - (raw_ratio-close_eye_ratio)/(open_eye_ratio - close_eye_ratio)
+    #print(closure)
+    return closure
+
+def alarm_system(frame,a_status):   
+    if a_status == True:
+        file_name = "alarm.wav"
+        content = "WARNING!!"
         
+        # Warning text for testing
+        cv2.putText(frame, content, (200, 30),
+            cv2.FONT_HERSHEY_SIMPLEX, 1.5, (64, 64, 255), 2)
         
-        
+        # Start Thread: sound alarm
+        """
+        t = Thread(target=sound_alarm, args=file_name)
+		t.deamon = True
+		t.start()
+        """
+    return frame
+
+def sound_alarm(file):
+	playsound.playsound(file)    
+
+
         
         
         
