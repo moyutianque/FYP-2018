@@ -6,6 +6,7 @@ import cv2
 from imutils import face_utils
 from scipy.spatial import distance as dist
 import playsound
+from threading import Thread
  
 
 def cal_raw_ratio(frame, detector, predictor,lStart, lEnd, rStart, rEnd):
@@ -106,10 +107,11 @@ def alarm_system(frame,a_status):
             cv2.FONT_HERSHEY_SIMPLEX, 1.5, (64, 64, 255), 2)
         
         # Start Thread: sound alarm
+        
         """
-        t = Thread(target=sound_alarm, args=file_name)
-		t.deamon = True
-		t.start()
+        t = Thread(target=sound_alarm, args=(file_name,))
+        t.deamon = True
+        t.start()
         """
     return frame
 
