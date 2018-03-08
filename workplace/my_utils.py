@@ -106,13 +106,12 @@ def alarm_system(frame,a_status):
         cv2.putText(frame, content, (200, 30),
             cv2.FONT_HERSHEY_SIMPLEX, 1.5, (64, 64, 255), 2)
         
-        # Start Thread: sound alarm
+        # Start Thread: sound alarm     
         
-        """
         t = Thread(target=sound_alarm, args=(file_name,))
         t.deamon = True
         t.start()
-        """
+        
     return frame
 
 def sound_alarm(file):

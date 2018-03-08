@@ -1,7 +1,6 @@
 #!/usr/bin/python  
 # -*- coding: utf-8 -*-  
 
-# My functions
 import dlib
 import cv2
 import time
@@ -51,7 +50,7 @@ def main():
     a_status = False
     c_status = False
     # INITIALIZATION: PERCLOS related
-    time_gap = 10
+    time_gap = 5
     PERCLOS_value = 0.0
     PERCLOS_queue = []
     closure_record_queue = [0] * 101
