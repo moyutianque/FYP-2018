@@ -7,6 +7,7 @@ import numpy as np
 from imutils import face_utils
 import my_utils
 import csv
+from my_extractor import extract_features
 
 file_name = "..\\shape_predictor_68_face_landmarks.dat"
 print("[INFO] loading facial landmark predictor...")
@@ -33,7 +34,7 @@ with open(output_csv ,"w",newline='') as csvfile:
                 for (x,y) in shape:
                     cv2.circle(srcImg, (x,y), 1, (255,144,30), -1)
             
-                writer.writerow(my_utils.extract_features(shape))
+                writer.writerow(extract_features(shape))
                 
             
             # [INFO] comment it down after testing

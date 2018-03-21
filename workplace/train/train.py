@@ -6,7 +6,6 @@ import cv2
 import time
 import numpy as np
 from imutils import face_utils
-import my_utils
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib
