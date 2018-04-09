@@ -20,7 +20,7 @@ def main():
     args = vars(ap.parse_args())
 
     file_name = "shape_predictor_68_face_landmarks.dat"
-    m_path = ".\\training\\model\\learned_model.pkl"
+    m_path = ".\\training\\model\\learned_model44.pkl"
     # Loading model
     print("[INFO] loading facial landmark predictor...")
     detector = dlib.get_frontal_face_detector()
@@ -61,7 +61,7 @@ def main():
             framecounter += 1
             end = time.clock()
             if end-start > 1:
-                print(framecounter)
+                #print(framecounter)
                 framecounter = 0
                 start = time.clock()
             # ----------------------------------------------
